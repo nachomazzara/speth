@@ -16,6 +16,7 @@ export function usePendingTransactions(): {
 
   useEffect(() => {
     if (active && chainId && account) {
+      setLoading(true)
       const etherscanScrapper = new EtherscanScrapper()
       etherscanScrapper
         .getPendingTransactionHashes(library, account, chainId)
@@ -24,7 +25,7 @@ export function usePendingTransactions(): {
           setLoading(false)
         })
     }
-  }, [active, chainId, library])
+  }, [active, chainId, library, account])
 
   return { pendingTransactions, pendingTransactionsLoading }
 }

@@ -6,6 +6,7 @@
 .container .wallet {
   font-size: 21px;
   font-weight: 600;
+  margin-bottom: 20px;
 }
 
 .container p {
@@ -23,6 +24,17 @@ button {
   border-radius: 7px;
   cursor: pointer;
   outline: none;
+}
+
+.connect {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.connect button {
+  padding: 10px 25px;
+  font-size: 14px;
 }
 
 @media (max-width: 920px) {

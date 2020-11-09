@@ -14,7 +14,7 @@ export const injected = new InjectedConnector({
 })
 
 function App() {
-  const { account, chainId, activate } = useWeb3React()
+  const { account, chainId, activate, active } = useWeb3React()
 
   useEffect(() => {
     injected.isAuthorized().then((isAuthorized) => {
@@ -34,20 +34,32 @@ function App() {
     })
   }, [activate])
 
+  function handleConnect() {
+    activate(injected, undefined, true).catch((e) => {
+      console.error(e.message)
+    })
+  }
+
   return (
     <div className="container">
-      <h1 className="wallet">
-        Connected:{' '}
-        <a
-          href={`${ETHERSCAN_URI[chainId || 1]}/address/${account}`}
-          rel="noreferrer"
-          target="_blank"
-        >
-          {account}
-        </a>
-      </h1>
+      {active ? (
+        <h1 className="wallet">
+          Connected:{' '}
+          <a
+            href={`${ETHERSCAN_URI[chainId || 1]}/address/${account}`}
+            rel="noreferrer"
+            target="_blank"
+          >
+            {account}
+          </a>
+        </h1>
+      ) : (
+        <div className="connect">
+          <button onClick={handleConnect}>Connect</button>
+        </div>
+      )}
       <CustomTransaction />
-      <Transactions />
+      {active && <Transactions />}
     </div>
   )
 }
