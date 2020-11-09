@@ -1,0 +1,74 @@
+.custom-transaction {
+  margin: 20px 0 50px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.custom-transaction-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.custom-transaction-form > div {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.custom-transaction-form > div.short {
+  max-width: 80px;
+}
+
+.custom-transaction-form label {
+  font-size: 16px;
+  width: 100%;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.custom-transaction-form input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.custom-transaction-form textarea {
+  min-height: 150px;
+}
+
+.custom-transaction-form input,
+.custom-transaction-form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 5px;
+  outline: none;
+  display: block;
+  font-size: 18px;
+  border-radius: 7px;
+  border: 2px solid #304157;
+  background: #112338;
+  color: #fff;
+  font-weight: 300;
+}
+
+.custom-transaction-form input::placeholder,
+.custom-transaction-form textarea::placeholder {
+  color: #ffffff29;
+}
+
+.custom-transaction button {
+  border: 1px solid #174272;
+  color: #fff;
+  font-size: 16px;
+  background: #174272;
+  padding: 13px 45px;
+  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+}

@@ -1,0 +1,30 @@
+.transactions .row {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #cdcdcd;
+  margin-top: 15px;
+  padding-bottom: 15px;
+}
+
+.transactions .row p {
+  max-width: 150px;
+  margin: 0 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+  text-align: left;
+}
+
+.transaction-header {
+  padding-bottom: 10px;
+}
+
+.transaction-header p {
+  font-weight: 600;
+}
+
+.no-txs {
+  font-style: italic;
+}

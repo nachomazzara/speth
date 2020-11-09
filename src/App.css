@@ -1,0 +1,32 @@
+.container {
+  max-width: 920px;
+  margin: 20px auto;
+}
+
+.container .wallet {
+  font-size: 21px;
+  font-weight: 600;
+}
+
+.container p {
+  font-size: 18px;
+  text-align: center;
+  color: #dedede;
+}
+
+button {
+  border: 1px solid #174272;
+  color: #fff;
+  font-size: 16px;
+  background: #174272;
+  padding: 13px 45px;
+  border-radius: 7px;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 920px) {
+  .container {
+    margin: 20px;
+  }
+}
