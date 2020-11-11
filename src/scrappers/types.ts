@@ -1,9 +1,11 @@
-import { Web3Provider } from '@ethersproject/providers'
+import { TransactionResponse, Web3Provider } from '@ethersproject/providers'
 
 export interface Scrapper {
   getPendingTransactionHashes(
     provider: Web3Provider,
     account: string,
     chainId: number
-  ): any
+  ): Promise<TransactionResponse[]>
+
+  getTransactiosByAddressURL(account: string, chainId: number): string
 }

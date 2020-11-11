@@ -2,9 +2,9 @@ import { Web3Provider, TransactionResponse } from '@ethersproject/providers'
 
 import { Scrapper } from './types'
 import { resolveInBatch } from '../utils'
-import { ETHERSCAN_URI } from '../constants'
+import { BLOCKCHAIN_DOT_COM_URI } from '../constants'
 
-export class EtherscanScrapper implements Scrapper {
+export class BlockchainDotComScrapper implements Scrapper {
   async getPendingTransactionHashes(
     library: Web3Provider,
     account: string,
@@ -17,14 +17,18 @@ export class EtherscanScrapper implements Scrapper {
     const element = document.createElement('html')
     element.innerHTML = html
 
-    const rows = element.getElementsByTagName('table')[0].rows
+    const rows = element.getElementsByClassName('sc-1fp9csv-0')
     const txsPromises = []
     for (const row of rows) {
-      if (row.innerHTML.indexOf('(pending)') !== -1) {
-        // Seconds children (column) from the row as current design
-        const txHash = row.children[1].textContent
-        if (txHash) {
-          txsPromises.push(library.getTransaction(txHash))
+      if (row.innerHTML.indexOf('Unconfirmed') !== -1) {
+        const links = row.getElementsByClassName(
+          'sc-1r996ns-0 gzrtQD sc-1tbyx6t-1 kXxRxe iklhnl-0 boNhIO'
+        )
+        for (const link of links) {
+          const href = link.getAttribute('href')
+          if (href && href.indexOf('tx/') !== -1) {
+            txsPromises.push(library.getTransaction(link.textContent!))
+          }
         }
       }
     }
@@ -40,6 +44,6 @@ export class EtherscanScrapper implements Scrapper {
   }
 
   getTransactiosByAddressURL(account: string, chainId: number): string {
-    return `api/server?url=${ETHERSCAN_URI[chainId]}/address/${account}`
+    return `api/server?url=${BLOCKCHAIN_DOT_COM_URI[chainId]}/${account}`
   }
 }

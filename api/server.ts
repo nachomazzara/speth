@@ -1,10 +1,11 @@
 import { NowRequest, NowResponse } from '@vercel/node'
+import https from 'https'
 import http from 'http'
 
 export default (request: NowRequest, response: NowResponse) => {
   const { url } = request.query
-
-  http.get(url as string, (res) => {
+  const requester = url.indexOf('https://') !== -1 ? https : http
+  requester.get(url as string, (res) => {
     let html = ''
 
     res.setEncoding('utf8')
@@ -13,8 +14,8 @@ export default (request: NowRequest, response: NowResponse) => {
       html += chunk
     })
 
-    res.on('end', function () {
-      response.status(200).send(`Hello ${html}!`)
+    res.on('end', function (e) {
+      response.status(200).send(html)
     })
   })
 }

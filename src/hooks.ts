@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { TransactionResponse } from '@ethersproject/providers'
 import { useWeb3React } from '@web3-react/core'
 
-import { EtherscanScrapper } from './scrappers'
+import { getPendingTransactionsByAddress } from './scrappers'
 
 export function usePendingTransactions(): {
   pendingTransactions: TransactionResponse[]
@@ -17,13 +17,12 @@ export function usePendingTransactions(): {
   useEffect(() => {
     if (active && chainId && account) {
       setLoading(true)
-      const etherscanScrapper = new EtherscanScrapper()
-      etherscanScrapper
-        .getPendingTransactionHashes(library, account, chainId)
-        .then((txHashes) => {
-          setPendingTransactions(txHashes)
+      getPendingTransactionsByAddress(library, account, chainId)
+        .then((txs) => {
+          setPendingTransactions(txs)
           setLoading(false)
         })
+        .catch((e) => console.warn(e.message))
     }
   }, [active, chainId, library, account])
 
