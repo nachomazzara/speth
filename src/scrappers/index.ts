@@ -19,8 +19,7 @@ export async function getPendingTransactionsByAddress(
       return pendingTxs
     } catch (e) {
       console.warn(
-        `Failed to fetch pending transactions with '${typeof Scrapper}' : ${e.message
-        }`
+        `Failed to fetch pending transactions with '${Scrapper.name}' : ${e.message}`
       )
     }
   }

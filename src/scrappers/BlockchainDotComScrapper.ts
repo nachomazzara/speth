@@ -12,6 +12,10 @@ export class BlockchainDotComScrapper implements Scrapper {
   ): Promise<TransactionResponse[]> {
     const res = await fetch(this.getTransactiosByAddressURL(account, chainId))
 
+    if (res.status < 200 || res.status > 300) {
+      throw new Error('Failed to fetch')
+    }
+
     const html = await res.text()
 
     const element = document.createElement('html')
