@@ -3,6 +3,21 @@
   margin: 20px auto;
 }
 
+.container .how-it-works {
+  text-align: right;
+  margin: 20px 0;
+  display: block;
+}
+
+.container .how-it-works button {
+  font-size: 11px;
+  padding: 10px 18px;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: transparent;
+  border: 2px solid #174272;
+}
+
 .container .wallet {
   font-size: 21px;
   font-weight: 600;

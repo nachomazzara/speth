@@ -1,0 +1,23 @@
+.tutorial {
+  height: 100vh;
+  width: 100vw;
+  background: #686868a8;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.tutorial > button {
+  border: none;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+  background: #174272;
+  width: 360px;
+  border-radius: 0;
+}
