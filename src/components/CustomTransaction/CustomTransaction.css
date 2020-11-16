@@ -73,3 +73,7 @@
   cursor: pointer;
   outline: none;
 }
+
+.custom-transaction .error {
+  color: #ff1212;
+}

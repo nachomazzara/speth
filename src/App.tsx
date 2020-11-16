@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
-import { isMobile } from 'react-device-detect'
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { ETHERSCAN_URI } from './constants'
 import Transactions from './components/Transactions'
@@ -14,30 +15,26 @@ export const injected = new InjectedConnector({
   supportedChainIds: [1, 3, 4, 5, 42],
 })
 
+const walletConnect = new WalletConnectConnector({
+  rpc: {
+    1: 'https://mainnet.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    // Not supported for the time being
+    // 3: 'https://ropsten.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    // 4: 'https://rinkeby.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    // 5: 'https://goerli.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    // 42: 'https://kovan.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+  },
+  bridge: 'https://bridge.walletconnect.org',
+  qrcode: true,
+  pollingInterval: 15000,
+})
+
 function App() {
   const [showTutorial, setShowTutorial] = useState(false)
   const { account, chainId, activate, active } = useWeb3React()
 
-  useEffect(() => {
-    injected.isAuthorized().then((isAuthorized) => {
-      if (isAuthorized) {
-        activate(injected, undefined, true).catch(() => {
-          //setTried(true)
-        })
-      } else {
-        if (isMobile && (window as any).ethereum) {
-          activate(injected, undefined, true).catch(() => {
-            // setTried(true)
-          })
-        } else {
-          // setTried(true)
-        }
-      }
-    })
-  }, [activate])
-
-  function handleConnect() {
-    activate(injected, undefined, true).catch((e) => {
+  function handleConnect(connector: AbstractConnector) {
+    activate(connector, undefined, true).catch((e) => {
       console.error(e.message)
     })
   }
@@ -66,7 +63,12 @@ function App() {
         </>
       ) : (
         <div className="connect">
-          <button onClick={handleConnect}>Connect</button>
+          <button onClick={() => handleConnect(injected)}>
+            Connect Metamask
+          </button>
+          <button onClick={() => handleConnect(walletConnect)}>
+            Connect WalletConnect
+          </button>
         </div>
       )}
       {showTutorial && <Tutorial onClose={handleShowTutorial} />}

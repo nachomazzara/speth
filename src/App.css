@@ -44,12 +44,13 @@ button {
 .connect {
   width: 100%;
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .connect button {
   padding: 10px 25px;
-  font-size: 14px;
+  font-size: 13px;
+  margin-left: 20px;
 }
 
 @media (max-width: 920px) {

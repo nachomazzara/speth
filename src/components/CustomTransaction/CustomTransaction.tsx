@@ -17,30 +17,38 @@ const initialTxFormValue: TxForm = {
 
 export default function CustomTransaction() {
   const [values, setValues] = useState<TxForm>(initialTxFormValue)
+  const [error, setError] = useState<string | null>(null)
   const { account, library } = useWeb3React()
 
   function handleSend() {
+    setError(null)
+
     if (!values) {
+      setError('Please, set values')
       return
     }
 
     const { to, data, value, gas, gasPrice, nonce } = values
 
-    const params = [
-      {
-        from: account,
-        to: to,
-        value: BigNumber.from(value).toHexString(),
-        data: data,
-        nonce: BigNumber.from(nonce).toHexString(),
-        gas: BigNumber.from(gas).toHexString(),
-        gasPrice: BigNumber.from(gasPrice).toHexString(),
-      },
-    ]
+    try {
+      const params = [
+        {
+          from: account,
+          to: to,
+          value: BigNumber.from(value).toHexString(),
+          data: data,
+          nonce: BigNumber.from(nonce).toHexString(),
+          gas: BigNumber.from(gas).toHexString(),
+          gasPrice: BigNumber.from(gasPrice).toHexString(),
+        },
+      ]
 
-    library
-      .send('eth_sendTransaction', params)
-      .then((res: any) => console.log(res))
+      library
+        .send('eth_sendTransaction', params)
+        .then((res: any) => console.log(res))
+    } catch (e) {
+      setError(e.message)
+    }
   }
 
   return (
@@ -101,6 +109,7 @@ export default function CustomTransaction() {
         </div>
       </div>
       <button onClick={handleSend}>SEND</button>
+      {error && <p className="error">{error}</p>}
     </div>
   )
 }
