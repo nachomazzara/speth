@@ -30,8 +30,6 @@ export default function CustomTransaction() {
 
     const { to, data, value, nonce, gas, gasPrice } = values
 
-
-
     try {
       const tx =  {
         from: account,
@@ -40,18 +38,24 @@ export default function CustomTransaction() {
         data: data,
         nonce: nonce ? BigNumber.from(nonce).toHexString() : null,
         gas: gas ? BigNumber.from(gas).toHexString() : null,
-        gasPrice: gasPrice ? BigNumber.from(gasPrice).toHexString() : '0x01',
-      }
-
-      if (!gas) {
-        const estimatedGas = await library.estimateGas(tx)
-        tx.gas = estimatedGas.toHexString()
+        gasPrice: gasPrice ? BigNumber.from(gasPrice).mul(BigNumber.from(1000000000)).toHexString() : '0x01',
       }
 
       if (!gasPrice) {
         const estimatedGasPrice = await library.getGasPrice()
         tx.gasPrice = estimatedGasPrice.toHexString()
       }
+
+      if (!gas) {
+        try {
+          const estimatedGas = await library.estimateGas(tx)
+          tx.gas = estimatedGas.toHexString()
+        } catch(e) {
+          setError(e.message)
+          return
+        }
+      }
+
 
       library
         .send('eth_sendTransaction',   [tx])

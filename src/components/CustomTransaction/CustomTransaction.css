@@ -80,4 +80,7 @@
 
 .custom-transaction .error {
   color: #ff1212;
+  width: 100%;
+  text-align: center;
+  word-break: break-all;
 }
