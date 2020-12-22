@@ -20,7 +20,7 @@ export default function CustomTransaction() {
   const [error, setError] = useState<string | null>(null)
   const { account, library } = useWeb3React()
 
-  function handleSend() {
+  async function handleSend() {
     setError(null)
 
     if (!values) {
@@ -28,23 +28,33 @@ export default function CustomTransaction() {
       return
     }
 
-    const { to, data, value, gas, gasPrice, nonce } = values
+    const { to, data, value, nonce, gas, gasPrice } = values
+
+
 
     try {
-      const params = [
-        {
-          from: account,
-          to: to,
-          value: BigNumber.from(value).toHexString(),
-          data: data,
-          nonce: BigNumber.from(nonce).toHexString(),
-          gas: BigNumber.from(gas).toHexString(),
-          gasPrice: BigNumber.from(gasPrice).toHexString(),
-        },
-      ]
+      const tx =  {
+        from: account,
+        to: to,
+        value: value ? BigNumber.from(value).toHexString() : 0,
+        data: data,
+        nonce: nonce ? BigNumber.from(nonce).toHexString() : null,
+        gas: gas ? BigNumber.from(gas).toHexString() : null,
+        gasPrice: gasPrice ? BigNumber.from(gasPrice).toHexString() : '0x01',
+      }
+
+      if (!gas) {
+        const estimatedGas = await library.estimateGas(tx)
+        tx.gas = estimatedGas.toHexString()
+      }
+
+      if (!gasPrice) {
+        const estimatedGasPrice = await library.getGasPrice()
+        tx.gasPrice = estimatedGasPrice.toHexString()
+      }
 
       library
-        .send('eth_sendTransaction', params)
+        .send('eth_sendTransaction',   [tx])
         .then((res: any) => console.log(res))
     } catch (e) {
       setError(e.message)
