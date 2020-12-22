@@ -74,6 +74,10 @@
   outline: none;
 }
 
+.custom-transaction button:disabled {
+  opacity: 0.3;
+}
+
 .custom-transaction .error {
   color: #ff1212;
 }

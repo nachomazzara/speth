@@ -118,7 +118,7 @@ export default function CustomTransaction() {
           </div>
         </div>
       </div>
-      <button onClick={handleSend}>SEND</button>
+      <button onClick={handleSend} disabled={!account}>SEND</button>
       {error && <p className="error">{error}</p>}
     </div>
   )
