@@ -47,13 +47,8 @@ export default function CustomTransaction() {
       }
 
       if (!gas) {
-        try {
-          const estimatedGas = await library.estimateGas(tx)
-          tx.gas = estimatedGas.toHexString()
-        } catch(e) {
-          setError(e.message)
-          return
-        }
+        const estimatedGas = await library.estimateGas(tx)
+        tx.gas = estimatedGas.toHexString()
       }
 
 
