@@ -69,14 +69,16 @@ export default function CustomTransaction() {
             <input
               type="text"
               placeholder="0x....."
-              onChange={(e) => setValues({ ...values, to: e.target.value })}
+              value={values.to}
+              onChange={(e) => setValues({ ...values, to: e.target.value.trim() })}
             />
           </div>
           <div>
             <label>Data</label>
             <textarea
               placeholder="0x....."
-              onChange={(e) => setValues({ ...values, data: e.target.value })}
+              value={values.data}
+              onChange={(e) => setValues({ ...values, data: e.target.value.trim() })}
             />
           </div>
         </div>

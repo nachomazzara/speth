@@ -3,6 +3,7 @@ import { useWeb3React } from '@web3-react/core'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { AbstractConnector } from '@web3-react/abstract-connector'
+import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 
 import { ETHERSCAN_URI } from './constants'
 import Transactions from './components/Transactions'
@@ -27,6 +28,11 @@ const walletConnect = new WalletConnectConnector({
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
+})
+
+const walletLinkConnector = new WalletLinkConnector({
+  appName: 'speth',
+  url: 'https://mainnet.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
 })
 
 function App() {
@@ -68,6 +74,9 @@ function App() {
           </button>
           <button onClick={() => handleConnect(walletConnect)}>
             Connect WalletConnect
+          </button>
+          <button onClick={() => handleConnect(walletLinkConnector)}>
+            Connect Coinbase
           </button>
         </div>
       )}
