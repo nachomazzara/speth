@@ -12,18 +12,19 @@ import Tutorial from './components/Tutorial'
 import './App.css'
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42],
+  supportedChainIds: [1, 3, 4, 5, 42, 42, 56, 97, 137, 80001],
 })
 
 const walletConnect = new WalletConnectConnector({
   rpc: {
     1: 'https://mainnet.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
-    // Not supported for the time being
-    // 3: 'https://ropsten.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
-    // 4: 'https://rinkeby.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
-    // 5: 'https://goerli.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
-    // 42: 'https://kovan.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
-  },
+    3: 'https://ropsten.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    4: 'https://rinkeby.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    5: 'https://goerli.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    42: 'https://kovan.infura.io/v3/85bbcb55329846258cda4ad9734d2e1f',
+    137: 'https://polygon-mainnet.infura.io/v3/fa3357a65e2d4214ac735190646a3c53',
+    80001: 'https://polygon-mumbai.infura.io/v3/fa3357a65e2d4214ac735190646a3c53',
+ },
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
   pollingInterval: 15000,
